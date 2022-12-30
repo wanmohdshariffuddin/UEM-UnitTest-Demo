@@ -1,0 +1,119 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs '14.15'
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
+    }
+
+    stages {
+        stage('Test Client') {
+            steps {
+                sh 'node -v'
+                sh 'npm -v'
+                dir('client') {
+                    sh '''
+                        npm install
+                        npm test
+                    '''
+                }
+            }
+        }
+
+        stage('SonarQube Scan') {
+            environment {
+                SONAR_TOKEN = vault path: 'secret/uemdemo/sonarqube', key: 'auth_token'
+            }
+            steps {
+                script {
+                    def scannerHome = tool 'SonarScanner';
+                    withSonarQubeEnv(installationName: 'demo-sonarcloud', envOnly: false) {
+                        wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: env['SONAR_TOKEN'], var: 'SECRET']]]) {
+                            // sh '${scannerHome}/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.organization=wickylim-vs -Dsonar.projectKey=jsmovievoting -Dsonar.sources=.'
+                        }
+                    }
+                }
+            }
+        }
+        stage("SonarQube Quality Gate") {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    // waitForQualityGate abortPipeline: true
+                    // temp dev configuration to ignore failed quality gate
+                    // waitForQualityGate abortPipeline: false
+                }
+            }
+        }
+
+        stage('Docker Image Build & Push') {
+            environment {
+                DOCKER_USERNAME = vault path: 'secret/uemdemo/docker', key: 'username'
+                DOCKER_TOKEN = vault path: 'secret/uemdemo/docker', key: 'token'
+            }
+            steps {
+                wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: env['DOCKER_TOKEN'], var: 'SECRET']]]) {
+                    sh 'docker login -u ${DOCKER_USERNAME} -p ${DOCKER_TOKEN}'
+                    dir('server') {
+                        sh '''
+                            docker build -t vsgdev/jsmovievoting_api:${GIT_COMMIT} .
+                            docker push vsgdev/jsmovievoting_api:${GIT_COMMIT}
+                        '''
+                    }
+                    dir('client') {
+                        sh '''
+                            docker build -t vsgdev/jsmovievoting_client:${GIT_COMMIT} .
+                            docker push vsgdev/jsmovievoting_client:${GIT_COMMIT}
+                        '''
+                    }
+                }
+            }
+            post { 
+                always { 
+                    sh "docker logout"
+                }
+            }
+        }
+
+        stage('Deploy to Kuberentes') {
+            environment {
+                GOOGLE_CRED_FILE = vault path: 'secret/uemdemo/kube', key: 'google_cred'
+                KUBECONFIG_FILE = vault path: 'secret/uemdemo/kube', key: 'kubeconfig'
+                GOOGLE_APPLICATION_CREDENTIALS = '/tmp/gsa-key.json'
+                KUBECONFIG = '/tmp/kubeconfig.yml'
+                POSTGRES_USER = vault path: 'secret/uemdemo/app', key: 'postgres_user'
+                POSTGRES_PASSWORD = vault path: 'secret/uemdemo/app', key: 'postgres_pass'
+            }
+            steps {
+                wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [
+                    [password: env['GOOGLE_CRED_FILE'], var: 'SECRET'],
+                    [password: env['KUBECONFIG_FILE'], var: 'SECRET'],
+                    [password: env['POSTGRES_USER'], var: 'SECRET'],
+                    [password: env['POSTGRES_PASSWORD'], var: 'SECRET']]]) {
+                    sh '''
+                        set +x
+                        echo "${GOOGLE_CRED_FILE}" > ${GOOGLE_APPLICATION_CREDENTIALS}
+                        echo "${KUBECONFIG_FILE}" > ${KUBECONFIG}
+                    '''
+                    
+                    //Deploy postgres
+                    // sh '''
+                    //     kubectl delete -f ./k8s/app-demo/postgres.yml
+                    //     POSTGRES_USER=${POSTGRES_USER} POSTGRES_PASSWORD=${POSTGRES_PASSWORD} envsubst < ./k8s/app-demo/postgres.yml | kubectl apply -f -
+                    // '''
+
+                    //Deploy api
+                    sh 'IMAGE_VERSION=${GIT_COMMIT} envsubst < ./k8s/app-demo/api.yml | kubectl apply -f -'
+
+                    //Deploy client
+                    sh 'IMAGE_VERSION=${GIT_COMMIT} envsubst < ./k8s/app-demo/client.yml | kubectl apply -f -'
+                }
+            }
+            post { 
+                always { 
+                    sh 'rm ${GOOGLE_APPLICATION_CREDENTIALS}'
+                    sh 'rm ${KUBECONFIG}'
+                }
+            }
+        }
+    }
+}
