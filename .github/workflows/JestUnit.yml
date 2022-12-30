@@ -20,5 +20,5 @@ jobs:
       - name: Run Tests
         working-directory: ./client
         run: |
-          CI=true npm test
+          npm install 
           npm test 
