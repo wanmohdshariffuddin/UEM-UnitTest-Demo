@@ -19,5 +19,6 @@ jobs:
 
       - name: Run Tests
         run: |
+          working-directory: ./client
           CI=true npm test
           npm test 
