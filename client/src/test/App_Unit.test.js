@@ -24,13 +24,12 @@ test("renders without crashing", () => {
 });
 
 
-describe('About', () => {
-  test('About renders correctly', () => {
-    render( <App /> )
-    expect(screen.getByText("Votes:")).toBeInTheDocument()
-  })
-
-})
+// describe('About', () => {
+//   test('About renders correctly', () => {
+//     render( <App /> )
+//     expect(screen.getByText("Votes:")).toBeInTheDocument()
+//   })
+// })
 
 
 //To test is there this h1 title named Hello World React
