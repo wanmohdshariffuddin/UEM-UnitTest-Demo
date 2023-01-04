@@ -23,7 +23,7 @@ class App extends Component {
   async fetchMovies() {
     try {
       const movies = await axios.get(`${process.env.REACT_APP_API_URL}/movies`);
-      this.setState({ movies: movies.data });
+      this.setState({ movies: movies?movies.data:[] });
     } catch (e) {
       console.error(e);
     }
