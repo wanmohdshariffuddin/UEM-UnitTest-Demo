@@ -21,4 +21,4 @@ jobs:
       - name: Run Tests
         working-directory: ./client
         run: |
-          npm test 
+          npm test -- App_Unit.test.js

@@ -7,12 +7,15 @@ import MovieBanner1 from './images/strange.jpg';
 import MovieBanner2 from './images/batman.jpg';
 import MovieBanner3 from './images/avatar.jpg';
 
+
+
 class App extends Component {
+  
   constructor(props) {
     super(props);
 
     this.state = {
-      movies: []
+      movies: props.initialValue || []
     }
   }
 
@@ -29,12 +32,15 @@ class App extends Component {
     }
   }
 
+  // takes a movie id, add 1 vote
   async voteMovie(id, votes=1) {
     try {
-      const movie = await axios.post(`${process.env.REACT_APP_API_URL}/movies`, { id, votes });
+      // post to the API. movie id and update number of vote 
+      const updatedMovie = await axios.post(`${process.env.REACT_APP_API_URL}/movies`, { id, votes });
       this.setState(prevState => {
-        const movies = _.unionBy([movie.data], prevState.movies, 'movie_id');
-        return { movies }
+        // 
+        const movies = _.unionBy([updatedMovie.data], prevState.movies, 'movie_id');
+        return { movies }  // return updated movies 
       });
     } catch (e) {
       console.error(e);
