@@ -7,7 +7,10 @@ import MovieBanner1 from './images/strange.jpg';
 import MovieBanner2 from './images/batman.jpg';
 import MovieBanner3 from './images/avatar.jpg';
 
+
+
 class App extends Component {
+  
   constructor(props) {
     super(props);
 
