@@ -47,7 +47,7 @@ jobs:
       - name: Clean Build DB
         if: env.executeBuild == 'true'
         run: |
-          flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true" -licenseKey="${{ env.FLYWAY_LICENSE_KEY }}" -configFiles="${{ env.path }}\conf\flyway.conf" -locations="filesystem:${{ env.path }}\sql" info clean info -url="${{ env.JDBC }}" -cleanDisabled='false'
+          flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true"  -locations="filesystem:${{ env.path }}\sql" info clean info -url="${{ env.JDBC }}" -cleanDisabled='false'
         
       # Runs the Flyway Migrate command against the Build database
       - name: Migrate Build DB
