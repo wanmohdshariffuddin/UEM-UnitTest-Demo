@@ -53,4 +53,4 @@ jobs:
       - name: Migrate Build DB
         if: env.executeBuild == 'true'
         run: |
-          flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true" -licenseKey="${{ env.FLYWAY_LICENSE_KEY }}" -configFiles="${{ env.path }}\flyway.conf" -locations="filesystem:${{ env.path }}\sql" info migrate info -url="${{ env.JDBC }}" -cleanDisabled='false'
+          flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true" -licenseKey="${{ env.FLYWAY_LICENSE_KEY }}" -configFiles="${{ env.path }}\conf\flyway.conf" -locations="filesystem:${{ env.path }}\sql" info migrate info -url="${{ env.JDBC }}" -cleanDisabled='false'
