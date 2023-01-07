@@ -1,4 +1,5 @@
-const { test, expect, chromium } = require('@playwright/test');
+
+const { test, expect } = require('@playwright/test');
 
 test('Verify the website link loads smoothly and displays the home page title', async ({ page }) => {
     await page.goto('http://localhost:3001/');
@@ -6,6 +7,8 @@ test('Verify the website link loads smoothly and displays the home page title', 
     const locator = page.locator('.navbar-item')
     await expect(locator).toHaveText("Movie Voting App 2022");
 });
+
+
 
 test('Verify the interface link between the votes number component and vote button. i.e. clicking the  movie 3 vote button should increase the votes numbers on the UI', async ({ page }) => {
 
@@ -22,5 +25,6 @@ test('Verify the interface link between the votes number component and vote butt
     await expect(voteNumDisplay).toHaveText("Votes: 9")
 
 });
+
 
 
