@@ -36,7 +36,7 @@ jobs:
       executeBuild: true
       publishArtifacts: true
       path: C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0
-      FLYWAY_LICENSE_KEY: 
+      FLYWAY_LICENSE_KEY: ''
  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
