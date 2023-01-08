@@ -15,7 +15,7 @@ env:
   #FIRST_UNDO_SCRIPT: ${{ secrets.FIRST_UNDO_SCRIPT }}
   # Enable this for additional debug logging
   ACTIONS_RUNNER_DEBUG: true 
-default:
+defaults:
   run: 
     shell: wsl-bash {0}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
