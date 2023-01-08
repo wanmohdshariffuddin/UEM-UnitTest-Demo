@@ -47,7 +47,11 @@ jobs:
       - name: Clean DB
         #if: env.executeBuild == 'true'
         run: |
-          flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true"  -locations="filesystem:${{ env.path }}\sql" info clean info -url="${{ env.JDBC }}" -cleanDisabled='false'
+          wsl-bash
+          cd C:/flyway-commandline-9.11.0-windows-x64/flyway-9.11.0
+          flyway info
+  
+#flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true"  -locations="filesystem:${{ env.path }}\sql" info clean info -url="${{ env.JDBC }}" -cleanDisabled='false'
         
       # Runs the Flyway Migrate command against the Build database
       - name: Migrate Build DB
