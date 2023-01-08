@@ -48,6 +48,8 @@ jobs:
       
       # Runs the Flyway Clean command against the Build database
       - name: Clean DB
+        shell: bash
+
         #if: env.executeBuild == 'true'
         run: |
           wsl bash -c cd 'C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0\'
