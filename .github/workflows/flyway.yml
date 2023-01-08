@@ -47,7 +47,7 @@ jobs:
       - name: Clean DB
         #if: env.executeBuild == 'true'
         run: |
-          wsl-bash
+          wsl-bash {0}
           cd C:/flyway-commandline-9.11.0-windows-x64/flyway-9.11.0
           flyway info
   
