@@ -48,7 +48,6 @@ jobs:
       
       # Runs the Flyway Clean command against the Build database
       - name: Clean DB
-        shell: bash
 
         #if: env.executeBuild == 'true'
         run: |
