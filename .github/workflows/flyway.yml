@@ -22,9 +22,7 @@ jobs:
   build:
     name: Deploy Build
     runs-on: self-hosted
-    defaults:
-          run:
-            shell: pwsh
+
     # The type of runner that the job will run on
     #environment: 'build' #Ensure this environment name is setup in the projects Settings>Environment area. Ensuring any reviewers are also configured 
     env:
@@ -48,6 +46,8 @@ jobs:
       
       # Runs the Flyway Clean command against the Build database
       - name: Clean DB
+        with: 
+          shell: powershell
         #if: env.executeBuild == 'true'
         run: |
           bash
