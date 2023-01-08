@@ -18,11 +18,13 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  runs-on: self-hosted
-
   # This workflow contains a single job called "build"
   build:
     name: Deploy Build
+    runs-on: self-hosted
+    defaults:
+          run:
+            shell: wsl-bash {0}
     # The type of runner that the job will run on
     #environment: 'build' #Ensure this environment name is setup in the projects Settings>Environment area. Ensuring any reviewers are also configured 
     env:
@@ -46,8 +48,6 @@ jobs:
       
       # Runs the Flyway Clean command against the Build database
       - name: Clean DB
-      - shell: wsl-bash {0}
-
         #if: env.executeBuild == 'true'
         run: |
           cd C:/flyway-commandline-9.11.0-windows-x64/flyway-9.11.0
