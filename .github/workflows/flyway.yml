@@ -23,6 +23,7 @@ jobs:
     name: Deploy Build
     # The type of runner that the job will run on
     runs-on: self-hosted
+    shell: wsl-bash {0}
     #environment: 'build' #Ensure this environment name is setup in the projects Settings>Environment area. Ensuring any reviewers are also configured 
     env:
       #stage: 'Build'
@@ -47,7 +48,6 @@ jobs:
       - name: Clean DB
         #if: env.executeBuild == 'true'
         run: |
-          wsl-bash {0}
           cd C:/flyway-commandline-9.11.0-windows-x64/flyway-9.11.0
           flyway info
   
