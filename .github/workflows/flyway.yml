@@ -15,11 +15,11 @@ env:
   #FIRST_UNDO_SCRIPT: ${{ secrets.FIRST_UNDO_SCRIPT }}
   # Enable this for additional debug logging
   ACTIONS_RUNNER_DEBUG: true 
-defaults:
-  run: 
-    shell: wsl-bash {0}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  runs-on: self-hosted
+
   # This workflow contains a single job called "build"
   build:
     name: Deploy Build
@@ -46,6 +46,8 @@ jobs:
       
       # Runs the Flyway Clean command against the Build database
       - name: Clean DB
+      - shell: wsl-bash {0}
+
         #if: env.executeBuild == 'true'
         run: |
           cd C:/flyway-commandline-9.11.0-windows-x64/flyway-9.11.0
