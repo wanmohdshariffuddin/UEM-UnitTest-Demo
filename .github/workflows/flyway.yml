@@ -44,19 +44,24 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      #- uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       
       # Runs the Flyway Clean command against the Build database
       - name: Clean DB
         #if: env.executeBuild == 'true'
         run: |
-          cd C:/flyway-commandline-9.11.0-windows-x64/flyway-9.11.0
-          flyway info
-        run-in: wsl
+          wsl bash -c cd 'C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0\'
+          wsl bash -c "flyway info"
+          wsl bash -c "flyway clean"
+          wsl bash -c "flyway migrate"
+
+
+
+
 #flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true"  -locations="filesystem:${{ env.path }}\sql" info clean info -url="${{ env.JDBC }}" -cleanDisabled='false'
         
       # Runs the Flyway Migrate command against the Build database
-      - name: Migrate Build DB
-        if: env.executeBuild == 'true'
-        run: |
-          flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true" -licenseKey="${{ env.FLYWAY_LICENSE_KEY }}" -configFiles="${{ env.path }}\conf\flyway.conf" -locations="filesystem:${{ env.path }}\sql" info migrate info -url="${{ env.JDBC }}" -cleanDisabled='false'
+      # - name: Migrate Build DB
+      #   if: env.executeBuild == 'true'
+      #   run: |
+      #     flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true" -licenseKey="${{ env.FLYWAY_LICENSE_KEY }}" -configFiles="${{ env.path }}\conf\flyway.conf" -locations="filesystem:${{ env.path }}\sql" info migrate info -url="${{ env.JDBC }}" -cleanDisabled='false'
