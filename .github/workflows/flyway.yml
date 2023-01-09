@@ -20,7 +20,7 @@ env:
 jobs:
   # This workflow contains a single job called "build"
   flyway-initalise-db:
-    name: Flyway Initialise DB
+    name: flyway initialise db
     runs-on: self-hosted
     #env:
       #stage: 'Build'
@@ -42,7 +42,7 @@ jobs:
       #- uses: actions/checkout@v2
 
       # Runs the Flyway Clean command against the Build database
-      - name: Clean DB
+      - name: initialise db
         #if: env.executeBuild == 'true'
         run: |
           cd 'C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0\'
@@ -52,8 +52,9 @@ jobs:
 
 
   integration-test:
-    name: PlayWright Integration Test
+    name: playwright integration test
     runs-on: self-hosted
+    needs: flyway initialise db
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
