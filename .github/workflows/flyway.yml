@@ -49,15 +49,12 @@ jobs:
 
       # Runs the Flyway Clean command against the Build database
       - name: Clean DB
-        shell: bash
         #if: env.executeBuild == 'true'
         run: |
-          wsl bash -c cd 'C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0\'
-          wsl bash -c "flyway info"
-          wsl bash -c "flyway clean"
-          wsl bash -c "flyway migrate"
-
-
+          cd 'C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0\'
+          flyway info
+          flyway clean
+          flyway migrate
 
 
 #flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true"  -locations="filesystem:${{ env.path }}\sql" info clean info -url="${{ env.JDBC }}" -cleanDisabled='false'
