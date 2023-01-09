@@ -51,7 +51,7 @@ jobs:
           flyway migrate
 
 
-  Integration Test:
+  integration-test:
     name: PlayWright Integration Test
     runs-on: self-hosted
     steps:
