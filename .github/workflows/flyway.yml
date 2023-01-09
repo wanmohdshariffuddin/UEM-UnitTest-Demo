@@ -39,9 +39,10 @@ jobs:
         with:
           node-version: 16
 
-      # - name: Install dependencies
-      #   working-directory: ./client
-      #   run: npm install
+      - name: Install dependencies
+        #working-directory: ./client
+        #run: npm install
+        run: npm install playwright@1.29.1
 
       - name: Run Tests
         working-directory: ./client/src
