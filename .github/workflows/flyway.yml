@@ -54,7 +54,7 @@ jobs:
   integration-test:
     name: playwright integration test
     runs-on: self-hosted
-    needs: flyway initialise db
+    needs: flyway-initalise-db
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
