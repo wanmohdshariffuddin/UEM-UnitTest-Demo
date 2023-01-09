@@ -1,49 +1,27 @@
 # This is a basic workflow to help you get started with Actions
  
 name: Example GitHub Pipeline (Self-Hosted) with Flyway and Playwright Integration Testing
- 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "release" branch
    push:
     branches:
       - feature
- 
+
 env:
-  #FLYWAY_LICENSE_KEY: ${{ secrets.FLYWAY_LICENSE_KEY }} #Repository Secret - Create this within the Projects Settings > Secrects > Actions section
-  # If the first undo script is U002, this will validate all undo scripts up to and including that
-  #FIRST_UNDO_SCRIPT: ${{ secrets.FIRST_UNDO_SCRIPT }}
   # Enable this for additional debug logging
   ACTIONS_RUNNER_DEBUG: true 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   flyway-initalise-db:
     name: flyway initialise db
     runs-on: self-hosted
-    #env:
-      #stage: 'Build'
-      # Environment Secrets - Ensure all of the below have been created as an Environment Secret (Projects Settings > Secrets > Actions section, specially related to the environment in question) #
-      # databaseName: postgresql #${{ secrets.databaseName}} 
-      # JDBC: jdbc:postgresql://localhost:5432/movie #${{ secrets.JDBC }} 
-      # userName: vsdev #${{ secrets.userName }}
-      # password: 36%L*fq-aW!MWDjt #${{ secrets.password }}
-      # # End of Environment Secrets #
-      # #displayName: 'Build'
-      # executeBuild: true
-      # publishArtifacts: true
-      # path: C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0
-      # #FLYWAY_LICENSE_KEY: ''
- 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       #- uses: actions/checkout@v2
-
       # Runs the Flyway Clean command against the Build database
       - name: initialise db
-        #if: env.executeBuild == 'true'
         run: |
           cd 'C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0\'
           flyway info
@@ -61,9 +39,9 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies
-        working-directory: ./client
-        run: npm install
+      # - name: Install dependencies
+      #   working-directory: ./client
+      #   run: npm install
 
       - name: Run Tests
         working-directory: ./client/src
