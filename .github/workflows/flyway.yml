@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
  
-name: Example GitHub Pipeline (Self-Hosted)
+name: Example GitHub Pipeline (Self-Hosted) with Flyway and Playwright Integration Testing
  
 # Controls when the workflow will run
 on:
@@ -19,27 +19,22 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  FlyWay Initalise DB:
     name: Deploy Build
     runs-on: self-hosted
-    # defaults:
-    #   run:
-    #     shell: bash
-    # The type of runner that the job will run on
-    #environment: 'build' #Ensure this environment name is setup in the projects Settings>Environment area. Ensuring any reviewers are also configured 
     env:
       #stage: 'Build'
       # Environment Secrets - Ensure all of the below have been created as an Environment Secret (Projects Settings > Secrets > Actions section, specially related to the environment in question) #
-      databaseName: postgresql #${{ secrets.databaseName}} 
-      JDBC: jdbc:postgresql://localhost:5432/movie #${{ secrets.JDBC }} 
-      userName: vsdev #${{ secrets.userName }}
-      password: 36%L*fq-aW!MWDjt #${{ secrets.password }}
-      # End of Environment Secrets #
-      #displayName: 'Build'
-      executeBuild: true
-      publishArtifacts: true
-      path: C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0
-      #FLYWAY_LICENSE_KEY: ''
+      # databaseName: postgresql #${{ secrets.databaseName}} 
+      # JDBC: jdbc:postgresql://localhost:5432/movie #${{ secrets.JDBC }} 
+      # userName: vsdev #${{ secrets.userName }}
+      # password: 36%L*fq-aW!MWDjt #${{ secrets.password }}
+      # # End of Environment Secrets #
+      # #displayName: 'Build'
+      # executeBuild: true
+      # publishArtifacts: true
+      # path: C:\flyway-commandline-9.11.0-windows-x64\flyway-9.11.0
+      # #FLYWAY_LICENSE_KEY: ''
  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -56,10 +51,21 @@ jobs:
           flyway migrate
 
 
-#flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true"  -locations="filesystem:${{ env.path }}\sql" info clean info -url="${{ env.JDBC }}" -cleanDisabled='false'
-        
-      # Runs the Flyway Migrate command against the Build database
-      # - name: Migrate Build DB
-      #   if: env.executeBuild == 'true'
-      #   run: |
-      #     flyway -user="${{ env.userName }}" -password="${{ env.password }}" -baselineOnMigrate="true" -licenseKey="${{ env.FLYWAY_LICENSE_KEY }}" -configFiles="${{ env.path }}\conf\flyway.conf" -locations="filesystem:${{ env.path }}\sql" info migrate info -url="${{ env.JDBC }}" -cleanDisabled='false'
+  Integration Test:
+    name: PlayWright Integration Test
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: npm install
+
+      - name: Run Tests
+        working-directory: ./client/src
+        run: |
+          npx playwright test Integration.spec.js
+
