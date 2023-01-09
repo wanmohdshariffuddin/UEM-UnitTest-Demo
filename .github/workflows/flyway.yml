@@ -19,8 +19,8 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  FlyWay Initalise DB:
-    name: Deploy Build
+  flyway-initalise-db:
+    name: Flyway Initialise DB
     runs-on: self-hosted
     #env:
       #stage: 'Build'
