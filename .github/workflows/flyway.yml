@@ -6,7 +6,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the "release" branch
    push:
     branches:
-      - feature
+      - master
 
 env:
   # Enable this for additional debug logging
