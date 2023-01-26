@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
  
-name: Example GitHub Pipeline (Self-Hosted) with Flyway and Playwright Integration Testing
+name: Integration Testing (Self-Hosted) with Flyway and Playwright Integration Testing
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "release" branch
