@@ -1,0 +1,31 @@
+name: Performance Tests
+
+on:
+  push:
+    branches:
+      - feature
+      
+jobs:
+  Jest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install K6
+        #working-directory: ./client
+        run: sudo apt-get install k6
+
+
+      - name: Load Tests
+        working-directory: ./client/tests
+        run: |
+          k6 run Load_test.js
+
+
+      - name: Tests
+        working-directory: ./client
+        run: |
+          k6 run Soak_test.js
