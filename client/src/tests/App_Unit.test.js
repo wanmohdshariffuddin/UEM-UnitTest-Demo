@@ -90,7 +90,7 @@ describe('Test voteMovie function', () => {
     const resp = {data: updatedMovie};
     axios.post.mockResolvedValue(resp);
     //call fetch movie function
-    await wrapper.instance().voteMovie(2,1);
+    await wrapper.instance().voteMovie(2,2);
     console.log("Updated:"+wrapper.state().movies,wrapper.instance().state.movies)
 
     //3) Compare between currentState and newState
