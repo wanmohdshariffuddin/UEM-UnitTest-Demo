@@ -4,8 +4,7 @@ name: Unit Tests
 
 on:
   push:
-    branches:
-      - feature
+    branches: [feature, master]
       
 jobs:
   Jest:
@@ -30,5 +29,5 @@ jobs:
         with:
             fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
