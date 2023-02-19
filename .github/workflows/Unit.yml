@@ -22,7 +22,7 @@ jobs:
       - name: Run Tests
         working-directory: ./client
         run: |
-          npm test App_Unit.test.js -- --coverage
+          npm test App_Unit.test.js -- --coverage --coverageDirectory=client/coverage/ 
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
