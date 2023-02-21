@@ -4,7 +4,8 @@ name: Unit Tests
 
 on:
   push:
-    branches: [feature]
+    branches: 
+      - branch-*
       
 jobs:
   Jest:
