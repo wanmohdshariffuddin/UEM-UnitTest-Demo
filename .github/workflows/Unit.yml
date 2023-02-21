@@ -25,9 +25,9 @@ jobs:
           npm test App_Unit.test.js -- --coverage --coverageDirectory=client/coverage/ 
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        #with:
-        #  fetch-depth: 0
+        uses: sonarsource/sonarcloud-scan-action@master
+        with:
+         fetch-depth: 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
