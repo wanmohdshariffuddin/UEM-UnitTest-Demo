@@ -4,12 +4,11 @@ name: Unit Tests
 
 on:
   push:
-    branches: [feature, master]
+    branches: [feature]
       
 jobs:
   Jest:
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
@@ -27,9 +26,8 @@ jobs:
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarqube-scan-action@master
-        # with:
-        #   fetch-depth: 0
+        with:
+          fetch-depth: 0
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_LOCAL }}
-          #SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: http://localhost:9000/dashboard?id=UEM-JS-DEMO 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
