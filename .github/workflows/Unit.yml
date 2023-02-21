@@ -25,7 +25,7 @@ jobs:
           npm test App_Unit.test.js -- --coverage --coverageDirectory=client/coverage/ 
 
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-scan-action@master
+        uses: SonarSource/sonarcloud-github-action@master
         with:
          fetch-depth: 0
         env:
