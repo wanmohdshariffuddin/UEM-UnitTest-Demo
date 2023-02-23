@@ -29,7 +29,7 @@ jobs:
       - name: fix code coverage paths
         working-directory: ./client
         run: |
-          sed -i 's@'$GITHUB_WORKSPACE'@g' /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
+          sed -e 's@'$GITHUB_WORKSPACE'@g' /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
 
 #' /github/workspace/client/client/coverage/lcov.info
 
