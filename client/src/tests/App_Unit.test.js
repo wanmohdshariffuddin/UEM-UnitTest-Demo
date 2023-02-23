@@ -10,7 +10,7 @@ import axios from 'axios';
 // Unit Test for Return Value or Exception: 
 const sum = require('../Sum');
 test('adds 2 + 2 to equal 4', () => {
-  expect(sum(2, 2)).toBe(10);
+  expect(sum(2, 2)).toBe(4);
 });
 
 
