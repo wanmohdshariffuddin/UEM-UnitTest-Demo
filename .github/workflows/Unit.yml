@@ -24,6 +24,11 @@ jobs:
         run: |
           npm test App_Unit.test.js -- --coverage --coverageDirectory=client/coverage/ 
 
+      - name: fix code coverage paths
+        working-directory: ./client
+        run: |
+          sed -i 's/\/github\/workspace\/client\/client\/coverage\//g' lcov.info
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
