@@ -26,10 +26,10 @@ jobs:
           echo $GITHUB_WORKSPACE
           pwd 
 
-      - name: fix code coverage paths
-        working-directory: ./client
-        run: |
-          sed -e 's@'$GITHUB_WORKSPACE'@g' /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
+      # - name: fix code coverage paths
+      #   working-directory: ./client
+      #   run: |
+      #     sed -e 's@'$GITHUB_WORKSPACE'@g' /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
 
 #' /github/workspace/client/client/coverage/lcov.info
 
