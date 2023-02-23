@@ -23,11 +23,13 @@ jobs:
         working-directory: ./client
         run: |
           npm test App_Unit.test.js -- --coverage --coverageDirectory=client/coverage/ 
+          echo $GITHUB_WORKSPACE
+          pwd 
 
-      - name: fix code coverage paths
-        working-directory: ./client
-        run: |
-          sed -i 's/github/workspace/client/client/coverage/g' /github/workspace/client/client/coverage/lcov.info
+      # - name: fix code coverage paths
+      #   working-directory: ./client
+      #   run: |
+      #     sed -i 's/github/workspace/client/client/coverage/g' /github/workspace/client/client/coverage/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
