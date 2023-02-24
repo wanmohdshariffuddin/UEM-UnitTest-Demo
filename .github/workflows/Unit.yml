@@ -28,7 +28,7 @@ jobs:
 
       - name: Testing lcov
         run: |
-          cat /github/workspace/client/client/coverage/lcov.info
+          cat /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
 
       # - name: fix code coverage paths
       #   working-directory: ./client
