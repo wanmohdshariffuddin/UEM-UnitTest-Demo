@@ -41,8 +41,8 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
          fetch-depth: 0
-         working-directory: ./client
 
         env:
+          working-directory: ./client
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
