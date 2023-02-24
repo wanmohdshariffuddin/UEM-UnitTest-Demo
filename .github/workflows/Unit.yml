@@ -37,6 +37,13 @@ jobs:
 
 #' /github/workspace/client/client/coverage/lcov.info
 
+      - name: fix code coverage paths
+        working-directory: ./client/coverage
+        run: |
+          sed -i 's/$GITHUB_WORKSPACE/g' lcov.info
+
+
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
