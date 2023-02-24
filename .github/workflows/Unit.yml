@@ -26,6 +26,10 @@ jobs:
           echo $GITHUB_WORKSPACE
           pwd 
 
+      - name: Testing lcov
+        run: |
+          cat /github/workspace/client/client/coverage/lcov.info
+
       # - name: fix code coverage paths
       #   working-directory: ./client
       #   run: |
@@ -33,10 +37,10 @@ jobs:
 
 #' /github/workspace/client/client/coverage/lcov.info
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-         fetch-depth: 0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@master
+      #   with:
+      #    fetch-depth: 0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
