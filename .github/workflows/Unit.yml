@@ -22,13 +22,13 @@ jobs:
       - name: Run Tests
         working-directory: ./client
         run: |
-          npm test App_Unit.test.js -- --coverage --coverageDirectory=client/coverage/ 
+          npm test App_Unit.test.js -- --coverage --coverageDirectory=coverage/ 
           echo $GITHUB_WORKSPACE
           pwd 
 
       - name: Testing lcov
         run: |
-          cat /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
+          cat /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/coverage/lcov.info
 
       # - name: fix code coverage paths
       #   working-directory: ./client
@@ -37,10 +37,10 @@ jobs:
 
 #' /github/workspace/client/client/coverage/lcov.info
 
-      # - name: SonarCloud Scan
-      #   uses: SonarSource/sonarcloud-github-action@master
-      #   with:
-      #    fetch-depth: 0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+         fetch-depth: 0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
