@@ -7,7 +7,7 @@ on:
     branches: [feature, master]
       
 jobs:
-  Jest:
+  Unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -38,11 +38,12 @@ jobs:
 #' /github/workspace/client/client/coverage/lcov.info
 
       - name: SonarCloud Scan
+        working-directory: ./client
+
         uses: SonarSource/sonarcloud-github-action@master
         with:
          fetch-depth: 0
-
         env:
-          working-directory: ./client
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        
