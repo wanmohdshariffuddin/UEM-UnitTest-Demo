@@ -22,7 +22,7 @@ jobs:
       - name: Run Tests
         working-directory: ./client
         run: |
-          npm test App_Unit.test.js -- --coverage --coverageDirectory=coverage/ 
+          npm test App_Unit.test.js -- --coverage  
           echo $GITHUB_WORKSPACE
           pwd 
 
