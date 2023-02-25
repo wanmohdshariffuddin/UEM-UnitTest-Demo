@@ -1,7 +1,6 @@
 # Example of Unit Test with types of TDD: Return Value & Check state changes
 
 name: Unit Tests
-
 on:
   push:
     branches: [feature, master]
@@ -26,18 +25,7 @@ jobs:
           echo $GITHUB_WORKSPACE
           pwd 
 
-      - name: Testing lcov
-        run: |
-          cat /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/coverage/lcov.info
-
-      # - name: fix code coverage paths
-      #   working-directory: ./client
-      #   run: |
-      #     sed -e 's@'$GITHUB_WORKSPACE'@g' /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
-
-#' /github/workspace/client/client/coverage/lcov.info
-
-      - name: fix code coverage paths
+      - name: Fix code coverage paths
         working-directory: ./client/coverage
       
         run: |
@@ -48,8 +36,7 @@ jobs:
         with:
          fetch-depth: 0
          projectBaseDir: ./client
-        
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         
