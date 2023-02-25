@@ -1,13 +1,12 @@
 # Example of Unit Test with types of TDD: Return Value & Check state changes
 
 name: Unit Tests
-
 on:
   push:
     branches: [feature, master]
       
 jobs:
-  Jest:
+  Unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,25 +21,22 @@ jobs:
       - name: Run Tests
         working-directory: ./client
         run: |
-          npm test App_Unit.test.js -- --coverage --coverageDirectory=coverage/ 
+          npm test App_Unit.test.js -- --coverage  
           echo $GITHUB_WORKSPACE
           pwd 
 
-      - name: Testing lcov
+      - name: Fix code coverage paths
+        working-directory: ./client/coverage
+      
         run: |
-          cat /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/coverage/lcov.info
-
-      # - name: fix code coverage paths
-      #   working-directory: ./client
-      #   run: |
-      #     sed -e 's@'$GITHUB_WORKSPACE'@g' /home/runner/work/UEM-UnitTest-Demo/UEM-UnitTest-Demo/client/client/coverage/lcov.info
-
-#' /github/workspace/client/client/coverage/lcov.info
+          sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
          fetch-depth: 0
+         projectBaseDir: ./client
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        
