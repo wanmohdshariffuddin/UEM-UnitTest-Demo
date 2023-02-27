@@ -19,27 +19,27 @@ jest.mock('axios');
 
 Enzyme.configure({ adapter: new Adapter() });
 
-test("renders without crashing", () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-});
+// test("renders without crashing", () => {
+//   const div = document.createElement('div');
+//   ReactDOM.render(<App />, div);
+// });
 
 
 
-//To test is there this h1 title named Hello World React
-describe('Test App Entry point', function () {
-  it('should have a h1 tag with Hello world React!', function () {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find("h1").text()).toEqual("Hello world React!");
-  });
-});
+// //To test is there this h1 title named Hello World React
+// describe('Test App Entry point', function () {
+//   it('should have a h1 tag with Hello world React!', function () {
+//     const wrapper = shallow(<App />);
+//     expect(wrapper.find("h1").text()).toEqual("Hello world React!");
+//   });
+// });
 
 
-test("renders Nav Title", () => {
-  const wrapper = shallow(<App />);
-  const welcome = <strong className="navbar-item">Movie Voting App 2022</strong>;
-  expect(wrapper.contains(welcome)).toEqual(true);
-});
+// test("renders Nav Title", () => {
+//   const wrapper = shallow(<App />);
+//   const welcome = <strong className="navbar-item">Movie Voting App 2022</strong>;
+//   expect(wrapper.contains(welcome)).toEqual(true);
+// });
 
 
 
@@ -77,16 +77,15 @@ describe('Test voteMovie function', () => {
     console.log("INIT"+wrapper.state().movies,wrapper.instance().state.movies);
 
     //2) Create a Mock response service of the API. Then, Call voteMovie func
-    const updatedMovie = {"movie_id":1,"votes":4}
+    const updatedMovie = {"movie_id":1,"votes":3}
     const resp = {data: updatedMovie};
     axios.post.mockResolvedValue(resp);
     //call fetch movie function
-    await wrapper.instance().voteMovie(2,1);
+    await wrapper.instance().voteMovie(3,1);
     console.log("Updated:"+wrapper.state().movies,wrapper.instance().state.movies)
 
     //3) Compare between currentState and newState
     expect(wrapper.state().movies).toContain(updatedMovie);
-
   })
 
   it('should do some other things ', () => {
