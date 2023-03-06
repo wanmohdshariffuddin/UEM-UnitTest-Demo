@@ -47,5 +47,5 @@ jobs:
       - name: Run Tests
         working-directory: ./client/src
         run: |
-          npx playwright test Integration.spec.js
+          npx playwright test E2E.spec.js
 
