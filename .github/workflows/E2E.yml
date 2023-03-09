@@ -45,8 +45,10 @@ jobs:
 
       - name: Run Tests
         working-directory: ./client/src
+        # Generates HTML Playwright output report 
         run: |
-          npx playwright test E2E.spec.js --reporter=html
+          npx playwright test E2E.spec.js --reporter=html   
+        # Below uploads the report as artifacts
       - uses: actions/upload-artifact@v2
         if: always()
         with:
