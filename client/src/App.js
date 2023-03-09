@@ -51,7 +51,6 @@ class App extends Component {
     const { movies } = this.state;
     return (
       <div>
-        <h1>Hello world React!</h1>
         <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
           <section className="container">
             <div className="navbar-brand">
