@@ -47,10 +47,8 @@ jobs:
         working-directory: ./client/src
         run: |
           npx playwright test E2E.spec.js
-
-      - name: Upload test results
+      - uses: actions/upload-artifact@v2
         if: always()
-        uses: actions/upload-artifact@v3
         with:
           name: playwright-report
-          path: playwright-report
+          path: playwright-report/
