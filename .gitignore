@@ -2,6 +2,7 @@
 
 # dependencies
 /*/node_modules
+/node_modules
 /client/.pnp
 .pnp.js
 
@@ -23,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .scannerwork
+/test-results/
+/playwright-report/
+/playwright/.cache/

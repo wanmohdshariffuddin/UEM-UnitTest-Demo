@@ -1,0 +1,21 @@
+{
+  "name": "uem-demo-jsmovievoting",
+  "version": "1.0.0",
+  "description": "## Application Introduction",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bwan109/UEM-UnitTest-Demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bwan109/UEM-UnitTest-Demo/issues"
+  },
+  "homepage": "https://github.com/Bwan109/UEM-UnitTest-Demo#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  }
+}
