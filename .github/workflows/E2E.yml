@@ -59,10 +59,11 @@ jobs:
         working-directory: ./client
         run: npm install
 
-      #- name: Install Playwright
-       # run: npx playwright install
+      - name: Install Playwright
+        run: npx playwright install
       - name: Run your tests
-        run: npx playwright test ./client/src/E2E.spec.js --reporter=html 
+        working-directory: ./client/src
+        run: npx playwright test E2E.spec.js --reporter=html 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v3
