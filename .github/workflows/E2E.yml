@@ -55,12 +55,11 @@ jobs:
       #     path: client/playwright-report
 
 
-      - name: Install dependencies
-        working-directory: ./client
-        run: npm install
+      # - name: Install dependencies
+      #   working-directory: ./client
+      #   run: npm install
 
       - name: Install Playwright
-
         run: |
           npm install @playwright/test                                             
           npx playwright install
