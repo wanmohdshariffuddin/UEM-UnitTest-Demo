@@ -1,4 +1,4 @@
-### 
+### ###
 name: E2E Testing (Self-Hosted) with Flyway and Playwright Integration Testing
 # Controls when the workflow will run
 on:
