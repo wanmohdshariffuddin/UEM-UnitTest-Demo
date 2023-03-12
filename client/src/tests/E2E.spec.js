@@ -5,7 +5,7 @@ const { test, expect } = require('@playwright/test');
 test('Verify the website link loads smoothly and displays the home page title', async ({ page }) => {
     await page.goto('http://localhost:3001/');
   
-    const locator = page.locator('.navbar-item')
+    const locator = page.locator('//*[@id="root"]/div/nav/section/div/strong')
     await expect(locator).toHaveText("Movie Voting App 2022");
 });
 
